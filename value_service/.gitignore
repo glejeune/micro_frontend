@@ -1,0 +1,11 @@
+/_build/
+/cover/
+/deps/
+/doc/
+/.fetch
+erl_crash.dump
+*.ez
+value_service-*.tar
+/priv/static/
+/config/*.secret.exs
+/node_modules

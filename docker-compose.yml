@@ -1,0 +1,38 @@
+version: '2'
+services:
+  haproxy:
+    image: haproxy:1.9.4-alpine
+    volumes:
+      - ./haproxy/haproxy-docker.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    ports:
+      - "3000:3000"
+      - "1080:1080"
+    depends_on:
+      - seo_service
+      - calculator_service
+      - value_service
+
+  seo_service:
+    build: ./seo_service
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./seo_service/app:/seo_service/app
+
+  calculator_service:
+    build: ./calculator_service
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./calculator_service/public:/calculator_service/public
+      - ./calculator_service/app:/calculator_service/app
+      - ./calculator_service/db:/calculator_service/db
+
+  value_service:
+    build: ./value_service
+    ports:
+      - "4100:4100"
+    volumes:
+      - ./value_service/config:/value_service/config
+      - ./value_service/lib:/value_service/lib
+      - ./value_service/priv:/value_service/priv
